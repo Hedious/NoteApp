@@ -10,6 +10,7 @@ import com.example.noteapp.repository.NoteRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectIndexed
@@ -28,12 +29,17 @@ class NoteViewModel @Inject constructor(private val repository: NoteRepository) 
             repository.getAllNotes().distinctUntilChanged().collect { listOfNote ->
                 if (listOfNote.isNullOrEmpty()) {
                     Log.d("Empty", "Empty List")
+                    _noteList.value = emptyList()
                 } else {
                     _noteList.value = listOfNote
                 }
             }
 
+
+
         }
+
+
         //noteList.addAll(NoteDataSource.loadNotes())
     }
 

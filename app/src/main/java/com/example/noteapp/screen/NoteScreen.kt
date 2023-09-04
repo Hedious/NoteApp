@@ -1,5 +1,6 @@
 package com.example.noteapp.screen
 
+import android.graphics.drawable.Icon
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -39,6 +40,8 @@ import com.example.noteapp.components.NoteButton
 import com.example.noteapp.components.NoteInputText
 import com.example.noteapp.data.NoteDataSource
 import com.example.noteapp.model.Note
+import com.example.noteapp.util.formatDate
+import org.w3c.dom.Text
 import java.time.format.DateTimeFormatter
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -63,7 +66,7 @@ fun NoteScreen(
         }, actions = {
             Icon(imageVector = Icons.Default.Notifications, contentDescription = "Noti Icon")
         },
-            colors = TopAppBarDefaults.smallTopAppBarColors(
+            colors = TopAppBarDefaults.topAppBarColors(
                 containerColor = Color(0xFFDADFE3)
             )
         )
@@ -150,11 +153,10 @@ fun NoteRow(
         ) {
             Text(text = note.title, style = MaterialTheme.typography.titleLarge)
             Text(text = note.description, style = MaterialTheme.typography.titleMedium)
-//            Text(
-//                text = note.createdDate.format(
-//                    DateTimeFormatter.ofPattern("EEE, d, MMM")
-//                ), style = MaterialTheme.typography.labelMedium
-//            )
+            Text(
+                text = formatDate(note.createdDate.time),
+                style = MaterialTheme.typography.labelMedium
+            )
         }
     }
 }
